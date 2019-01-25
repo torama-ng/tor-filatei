@@ -1,0 +1,23 @@
+
+{{#if user}}
+    <div class="row container-fluid">
+        <div class="col " id="col0" >
+            <select  id="selectdiv0" name="selectdiv0" onChange="populate(this.id)">
+                
+                <option value="">
+                    Select Course
+                </option>
+                
+                {{#each videoGroup}}
+                <option value="{{this}}">
+                    {{this}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        
+    </div>
+        
+{{else}}
+     <div class="alert alert-danger">Please login</div> 
+{{/if}}

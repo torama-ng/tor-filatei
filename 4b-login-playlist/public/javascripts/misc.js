@@ -90,3 +90,17 @@ function playcVideo(selectid) {
 
 // Handlebars helperS
 // substr to decorate string
+
+function populate(s1) {
+  var s1 = document.getElementById(s1);
+  if (s1.value) {
+    // call a function to return all files in folder s1
+
+  }
+  // create a new select dom and populate it with files from function
+  var newSelect = document.createElement("select");
+  var newOption = document.createElement("option");
+    newOption.value = "Files from function";
+    newOption.innerHTML = "files from Function";
+    newSelect.options.add(newOption);
+}
