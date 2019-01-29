@@ -20,7 +20,7 @@ mongoose
 .catch(err => console.log(err));
 
 const videoRoutes = require('./routes/videoroutes');
-const fbrowseRoutes = require('./routes/filebrowser');
+// const fbrowseRoutes = require('./routes/filebrowser');
 const torplay = require('./routes/torplay');
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -145,6 +145,6 @@ app.use('/angular', angular);
 app.use('/vue', vue);
 app.use('/linux', linux);
 app.use('/bash', bash);
-app.use('/fbrowser', fbrowseRoutes);
+// app.use('/fbrowser', fbrowseRoutes);
 
 module.exports = app;
