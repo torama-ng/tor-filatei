@@ -4,8 +4,43 @@ const fs = require("fs");
 const path = require("path");
 
 const videosPath = path.join(__dirname, '../videos');
+// Async function to recursively generate file tree
+// creates 'file' object with props 
+// filePath, 
+// isFileBoolean, and 
+// files
+const generateFileTreeObject = directoryString => {  
+    return fs.readdirAsync(directoryString)
+      .then(arrayOfFileNameStrings => {
+        const fileDataPromises = arrayOfFileNameStrings.map(fileNameString => {
+          const fullPath = `${directoryString}/${fileNameString}`;
+          return fs.statAsync(fullPath)
+            .then(fileData => {
+              const file = {};
+              file.filePath = fullPath;
+              file.isFileBoolean = fileData.isFile();
+              /*Here is where we'll do our recursive call*/
+              if (!file.isFileBoolean) {
+                return generateFileTreeObject(file.filePath)
+                  .then(fileNamesSubArray => {
+                    file.files = fileNamesSubArray;
+                  })
+                  .catch(console.error);
+              }
+              /*End recursive condition*/
+              return file;
+            });
+        });
+        return Promise.all(fileDataPromises);
+      });
+  };
 
-
+  // call the async function
+  generateFileTreeObject(videosPath)
+      .then(files => {
+        console.log(files);
+      })
+      .catch(console.error)
 
 // display content of this folder 
 var fileObj = [];

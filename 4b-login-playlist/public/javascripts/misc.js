@@ -93,14 +93,19 @@ function playcVideo(selectid) {
 
 function populate(s1) {
   var s1 = document.getElementById(s1);
-  if (s1.value) {
-    // call a function to return all files in folder s1
+  var selected = s1.value;
+  var optionFolder = document.getElementById(selected);
+  var files = optionFolder.getAttribute("data-files");
 
-  }
   // create a new select dom and populate it with files from function
+  
   var newSelect = document.createElement("select");
   var newOption = document.createElement("option");
     newOption.value = "Files from function";
-    newOption.innerHTML = "files from Function";
+    newOption.innerHTML = files;
     newSelect.options.add(newOption);
+    var c0 = document.getElementById('col0');
+    c0.appendChild(newSelect);
 }
+
+$( "body" ).html( main( { files: files } ) );

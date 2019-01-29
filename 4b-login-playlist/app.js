@@ -52,6 +52,8 @@ app.engine('hbs', exphbs({
   
 app.set('view engine', 'hbs');
 
+//Handlebars Partial
+
 // Handlebars helpers
 hbs.registerHelper('if_eq', function(a, b, opts) {
   if (a == b) {

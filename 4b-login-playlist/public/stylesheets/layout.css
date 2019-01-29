@@ -12,7 +12,8 @@
 }
 
 .w30 {
-    flex-basis: 28%
+    flex-basis: 28%;
+    height:100%;
 }
 
 /*
@@ -82,15 +83,6 @@
     }
   }
   
-  .rside .card_text {
-    position: absolute;
-    top: 50%;
-    left: 125%;
-    transform: translate(-50%, -50%);
-    color: black;
-    opacity: 1;
-    transition: opacity ease-out 250ms;
-  }
   
   .card:hover  {
     opacity: 1;
