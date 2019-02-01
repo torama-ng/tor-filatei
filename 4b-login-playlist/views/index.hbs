@@ -14,9 +14,9 @@
         <!-- Place all category items in a Card-->
         <!-- Category Photo and name and number of items in category-->
         {{#each videoGroup}}
-
+            <a class="card-link" href="/torplay/{{this.category}}">
+               
             <div class="card icard bg-light ml-1 px-1 mb-1   ">
-                <a class="card-link" href="/torplay/{{this.category}}">
                  
                     <div class="card_text">
                         <h5 class="card_title">{{this.category}}</h5>
@@ -28,9 +28,10 @@
                     {{else}}
                         <small class="card-text nvd text-muted">{{this.files.length}} Videos</small>
                     {{/if_eq}}
-                </a> 
                       
             </div>
+            </a> 
+            
         {{/each}}
     </div>
         
