@@ -4,10 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const subjectsData = require('../models/subject');
-
 const videosPath = path.join(__dirname, '../videos');
-
-
 
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
@@ -41,42 +38,6 @@ router.get('/', ensureAuthenticated, function(req, res){
 
 	});
 });
-
-//dataloader
-router.get('/dataloader', ensureAuthenticated, (req,res,next) => {
-	subjects = fs.readdirSync(videosPath);
-	
-	subjects.forEach(folder => {
-	  
-	  // First check the folder if it exists on the collection, before inserting
-	  subjectsData.findOne({name:folder}, (err, doc)=>{
-		if (err) res.send('Error Encountered');
-		if (doc) {
-		  // Folder already exists in the collection, so do nothing
-			res.send(folder + ' data already in database');
-		}
-		else {
-			var item = {
-				name: folder
-		  	}
-  
-		  // subjects to dcollection
-		  	var subject = new subjectsData(item);
-			
-			subject.save(function (err) {
-				if (err) res.send('Error saving ' + folder);
-				else
-					res.send(folder + 'Data Loaded successfully');
-				// saved!
-			});  
-  
-		  	
-		}
-	  })
-	});
-  
-  })
-
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){

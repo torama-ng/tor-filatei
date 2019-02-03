@@ -20,7 +20,7 @@ mongoose
 .catch(err => console.log(err));
 
 const videoRoutes = require('./routes/videoroutes');
-// const fbrowseRoutes = require('./routes/filebrowser');
+const courses = require('./routes/courses/courseroutes');
 const torplay = require('./routes/torplay');
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -128,6 +128,7 @@ app.use(function (req, res, next) {
 // Routes
 app.use('/api/videos',videoRoutes);
 app.use('/torplay',torplay);
+app.use('/courses',courses);
 
 app.use('/', routes);
 app.use('/users', users);

@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 var subjectDataSchema = new Schema({
     name: { type: String, required: true },
     time: { type: Date, default: Date.now },
+    categoryid: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'categories'
+    },
+    
     courses: [{
         filename: String,
         author: String,
