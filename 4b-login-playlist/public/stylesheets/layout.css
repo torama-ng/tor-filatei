@@ -32,7 +32,8 @@
 .card .rside {
     position: relative;
     margin: 1em;
-    background: gray;
+    background: red;
+    opacity: 0.5
 }
 
 .rside::before,
@@ -90,6 +91,8 @@
     color: black;
     opacity: 1;
     transition: opacity ease-out 250ms;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .card:hover  {

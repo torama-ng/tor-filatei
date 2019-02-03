@@ -94,30 +94,37 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
 
 router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {
     subject = req.params.subject;
-    course = req.params.course;
-      
+    course = req.params.course || req.query.course;
+    let result = [];
     subjectsData.findOne({name:subject}, (err, doc)=>{
-        if (err) res.status(404).send('Error Encountered');
+        if (err) error = 'Error Encountered in model findOnes';
         else if (doc) {
             
             doc.courses.forEach(cs => {
                 
-                if((cs.filename).toLowerCase().indexOf(course.toLowerCase()) >= 0) {
+                if((cs.filename).toLowerCase().indexOf(course.toLowerCase()) > 0) {
                     
-                    res.send('Result found');
+                  //  res.send('Result found');
                     console.log(cs.filename);
                     console.log(course);
+                    result.push( cs.filename);
                 }
-                else {
-                    return res.status(500).json({err:'No match'});
-    
-                }
-                
-            })
-            
+            })           
         }
-        else return res.status(500).json({err:'No good doc here'});
-    });
+      
+    })
+    .then(() => {
+        
+	    res.render('search', { 
+            title: 'Search Result',
+            result: result,
+            count: result.length
+        });
+        
+    })
+    .catch(() => {
+        res.status(500).send('Error in Data fetch')
+    })
 })
 
 
