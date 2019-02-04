@@ -6,11 +6,15 @@ const fetch = require('node-fetch');
 const subjectsData = require('../../models/subject');
 
 const videosPath = path.join(__dirname, '../../videos');
-
+const videosPath2 = "";
 
 //dataloader - loads toplevel courses/subjects and video class files
 router.get('/dataloader', ensureAuthenticated, (req,res,next) => {
-	subjects = fs.readdirSync(videosPath);
+    // check environment
+    if (process.env.PLATFORM != "PROD"){
+        return res.send('This is not PROD environment. Data not loaded');
+    }
+	subjects = fs.readdirSync(videosPath2);
 	
 	subjects.forEach(folder => {
 	  
