@@ -71,25 +71,56 @@ router.get('/dataloader', ensureAuthenticated, (req,res,next) => {
 
 // List all Courses/subjects and video files under them
 router.get('/', ensureAuthenticated, (req,res,next) => {
+    let resultObj = {};
     subjectsData.find( (err, doc)=>{
         if (err) res.status(404).send('Error Encountered');
         else if (doc) {
-            docj = JSON.stringify(doc);
-            res.json(docj);
+            
+            // docj = JSON.stringify(doc);
+            resultObj = doc;
         }
-    });
+    })
+    .then(() => {
+        
+	    res.render('listcourses', { 
+            title: 'List of Courses',
+            result: resultObj,
+            count: resultObj.length
+        });
+        
+    })
+    .catch((err) => {
+        res.status(500).send(err);
+    })
 })
 
 
 // find and display one course/subject by name
 router.get('/:name', ensureAuthenticated, (req,res,next) => {
-    name = req.params.name;
-    subjectsData.findOne({name:name}, (err, doc)=>{
-        if (err) res.status(404).send('Error Encountered');
+    
+    subject = req.params.name;
+    let result = [];
+    subjectsData.findOne({name:subject}, (err, doc)=>{
+        if (err) error = 'Error Encountered in model findOnes';
         else if (doc) {
-            res.json(doc);
+            
+            doc.courses.forEach(cs => {                    
+                 //  res.send('Result found');
+                console.log(cs.filename);
+                result.push( cs.filename);
+            })           
         }
-    });
+    })
+    .then(() => {
+	    res.render('search', { 
+            title: 'Course Category',
+            result: result,
+            count: result.length
+        });
+    })
+    .catch(() => {
+        res.status(500).send('Error in Data fetch')
+    })
 })
 
 router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {

@@ -1,0 +1,34 @@
+
+{{#if user}}
+    <div>
+        <h5> {{count}} Subjects</h5>
+    </div>
+    <hr>
+    <div class="container-fluid" >    
+        {{#each result}}
+            <details>
+                <summary>
+                    <span class="text-uppercase">
+                        {{this.name}}
+                    </span> 
+                    (
+                    <span class="text-primary">
+                        <a href="/courses/{{this.name}}">
+                            {{this.courses.length}} videos
+                        </a> 
+                    </span>
+                    )
+                </summary>
+                <div class="list-group">
+                    {{#each this.courses}}
+                        <a href="/{{this.filename}}" class="list-group-item">{{this.filename}}</a>
+                    {{/each}}
+                </div>
+            </details> 
+        {{/each}}
+    </div>
+        
+{{else}}
+     <div class="alert alert-danger">Please login</div>S
+{{/if}}
+
