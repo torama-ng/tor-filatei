@@ -37,10 +37,10 @@ router.get('/dataloader', ensureAuthenticated, (req,res,next) => {
                         console.log (`inserting ${mp4} ${doc}`);
                         doc.save()
                         .then(function () {
-                            return res.send(`${mp4} inserted into ${doc}`);
-                        },function(err){
-                            if (err)
-                            return res.status(404).send(`error inserting course ${mp4} into ${doc}`)
+                            console.log(`${mp4} inserted into ${doc}`);
+                        })
+                        .catch((err) => {
+                            console.log(`error inserting course ${mp4} into ${doc}`)
                         });
                     }
 
@@ -66,7 +66,7 @@ router.get('/dataloader', ensureAuthenticated, (req,res,next) => {
 			} // end main else
 		}) // end of subjectsData.findOne
 	}); //end of subjects.forEach
-  
+    res.send('Data Loaded');
   })
 
 // List all Courses/subjects and video files under them
@@ -123,6 +123,7 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
     })
 })
 
+// list courses under a subject
 router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {
     subject = req.params.subject;
     course = req.params.course || req.query.course;
