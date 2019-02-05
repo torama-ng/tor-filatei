@@ -63,10 +63,10 @@ function playcVideo(selectid) {
   let selected = selectid;
   
   videotext.innerText = selected.substring(0, selected.lastIndexOf('.'));
-  selected = '/' + folder + '/' + selected;
+  selected = '/' + folder.toLowerCase() + '/' + selected;
   // console.log(`select id is ${selectid} selected is ${selected}`);
   // set text for video Title
- // console.log(`selected url is ${selected} `); 
+  console.log(`selected url is ${selected} `); 
   var source = document.createElement('source');
   
   //source.setAttribute('src', encodeURI(selected));

@@ -120,6 +120,7 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
     .then(() => {
 	    res.render('search', { 
             title: 'Course Category',
+            category: subject,
             result: result,
             count: result.length
         });

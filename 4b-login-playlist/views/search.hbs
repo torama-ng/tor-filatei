@@ -24,14 +24,15 @@
        </div>
        
         <div class="col w30">
-            <h5> {{count}} Results</h5>
+            
+            <h5 id="{{category}}"> {{category}} Play List ({{count}})</h5>
             {{#each result}}
             
             <div class="card rside text-white bg-primary mb-1 " onclick="playcVideo('{{this}}')">
                 <div class="card-header">{{@index}}</div>
                 <div class="card-body">
-                    <h5 class="card-title text-white">{{formatMe this}}</h5>
-                    <p class="card-text text-warning">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h4 class="card-title text-white">{{formatMe this}}</h4>
+                    <small class="card-text text-warning">Some quick example text to build on the card title and make up the bulk of the card's content.</small>
                 </div>
             </div>
             {{/each}}
