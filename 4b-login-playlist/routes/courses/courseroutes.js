@@ -84,6 +84,7 @@ router.get('/', ensureAuthenticated, (req,res,next) => {
             resultObj = doc;
         }
     })
+    .exec()
     .then(() => {
         
 	    res.render('listcourses', { 
@@ -115,6 +116,7 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
             })           
         }
     })
+    .exec()
     .then(() => {
 	    res.render('search', { 
             title: 'Course Category',

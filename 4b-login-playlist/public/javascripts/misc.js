@@ -108,4 +108,3 @@ function populate(s1) {
     c0.appendChild(newSelect);
 }
 
-$( "body" ).html( main( { files: files } ) );
