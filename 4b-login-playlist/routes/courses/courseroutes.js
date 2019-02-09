@@ -81,17 +81,18 @@ router.get('/', ensureAuthenticated, (req,res,next) => {
         else if (doc) {
             
             // docj = JSON.stringify(doc);
-            resultObj = doc;
+            count = doc.length;
+            console.log (`I am here and doc is ${doc}`);
+            res.render('listcourses', { 
+                title: 'List of Courses',
+                result: doc,
+                count
+            });
+            
         }
     })
     .exec()
     .then(() => {
-        
-	    res.render('listcourses', { 
-            title: 'List of Courses',
-            result: resultObj,
-            count: resultObj.length
-        });
         
     })
     .catch((err) => {
@@ -113,17 +114,20 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
                  //  res.send('Result found');
                 console.log(cs.filename);
                 result.push( cs.filename);
-            })           
+            })       
+            count = result.length;
+
+            res.render('search', { 
+                title: 'Course Category',
+                category: subject,
+                result: result,
+                count
+            });
         }
     })
     .exec()
     .then(() => {
-	    res.render('search', { 
-            title: 'Course Category',
-            category: subject,
-            result: result,
-            count: result.length
-        });
+	  
     })
     .catch(() => {
         res.status(500).send('Error in Data fetch')
@@ -148,17 +152,20 @@ router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {
                     console.log(course);
                     result.push( cs.filename);
                 }
-            })           
+            }) ;
+            
+            count = result.length;          
+            res.render('search', { 
+                title: 'Search Result',
+                result: result,
+                count
+            });
         }
       
     })
     .then(() => {
         
-	    res.render('search', { 
-            title: 'Search Result',
-            result: result,
-            count: result.length
-        });
+	  
         
     })
     .catch(() => {
