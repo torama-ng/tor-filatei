@@ -21,7 +21,7 @@ mongoose
 
 const videoRoutes = require('./routes/videoroutes');
 const courses = require('./routes/courses/courseroutes');
-const data = require('./routes/data/dataroutes');
+const data = require('./routes/rdata/dataroutes');
 
 const torplay = require('./routes/torplay');
 const routes = require('./routes/index');
