@@ -33,15 +33,8 @@
                         </a> 
                     </span>
                     ) 
-                        <form action="/data/delete" method="post" class="delsub">
-                            <input type="hidden" name="subject" value="{{this.name}}">
-                            
-                            <button  class=" btn btn-danger btn-sm" type="submit">Delete Subject</button>
-                            
-                        </form>
-                    <span>
-          
-                    </span>
+                
+                
                 </summary>
                 <!-- Portfolio Item Row -->
                 {{#each this.courses}}
@@ -66,6 +59,12 @@
                                 <input type="hidden" name="id" value="{{this._id}}" >
                                 <button type="submit">Delete Course</button>
                                
+                            </form>
+                            <form action="/data/delete" method="post" class="delsub">
+                                <input type="hidden" name="subject" value="{{../this.name}}">
+                                
+                                <button  class=" btn btn-danger btn-sm" type="submit">Delete Subject</button>
+                                
                             </form>
                             <!--
                                 <a href="/data/delete?subject={{../this.name}}&id={{this._id}}" 

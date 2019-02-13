@@ -1,6 +1,10 @@
-form#dataloader {
+form#dataloader  {
     display:inline;
 }
+form#delall  {
+    display:inline;
+}
+
 .delsub {
     display: inline;
 }
