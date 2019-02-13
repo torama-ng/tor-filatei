@@ -21,6 +21,8 @@ mongoose
 
 const videoRoutes = require('./routes/videoroutes');
 const courses = require('./routes/courses/courseroutes');
+const data = require('./routes/data/dataroutes');
+
 const torplay = require('./routes/torplay');
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -132,7 +134,7 @@ app.use(function (req, res, next) {
 app.use('/api/videos',videoRoutes);
 app.use('/torplay',torplay);
 app.use('/courses',courses);
-
+app.use('/data',data);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/nodejs', nodejs);

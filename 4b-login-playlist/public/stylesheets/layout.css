@@ -1,3 +1,9 @@
+form#dataloader {
+    display:inline;
+}
+.delsub {
+    display: inline;
+}
 .mycol{
     border: 1px solid gold;
     min-height: vh;

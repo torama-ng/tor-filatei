@@ -8,22 +8,23 @@ const subjectsData = require('../models/subject');
 
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
-	let resultObj = {};
-    subjectsData.find( (err, doc)=>{
-        if (err) res.status(404).send('Error Encountered');
-        else if (doc) {
+	
+    subjectsData.find({}, (err, result)=>{
+        if (err) return res.status(404).send('Error Encountered');
+        if (result) {
             
             // docj = JSON.stringify(doc);
-            resultObj = doc;
+            count = result.length;
+            
+            res.render('listcourses', { 
+                title: 'List of Courses',
+                result,
+                count
+            });
+        
         }
     })
     .then(() => {
-        
-	    res.render('listcourses', { 
-            title: 'List of Courses',
-            result: resultObj,
-            count: resultObj.length
-        });
         
     })
     .catch((err) => {

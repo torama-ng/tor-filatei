@@ -1,12 +1,27 @@
 
 {{#if user}}
     <div>
-        <h5> {{count}} Subjects</h5>
+        <h5> {{count}} Subjects
+        <!-- Load Data Button -->
+        <form action="/data/dataloader" method="post" id="dataloader">
+            <button  class="btn btn-success" type="submit">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                Load Data</button>
+                               
+        </form>
+        <form action="/data/delete" method="post" id="delall">
+            <input type="hidden" name="subject" value="ALL">
+            <button  class="btn btn-success" type="submit">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete All</button>
+                               
+        </form>
+        </h5>
     </div>
     <hr>
     <div class="container-fluid" >    
         {{#each result}}
-            <details>
+            <details id="{{this.name}}">
                 <summary>
                     <span class="text-uppercase">
                         {{this.name}}
@@ -17,7 +32,16 @@
                             {{this.courses.length}} videos
                         </a> 
                     </span>
-                    )
+                    ) 
+                        <form action="/data/delete" method="post" class="delsub">
+                            <input type="hidden" name="subject" value="{{this.name}}">
+                            
+                            <button  class=" btn btn-danger btn-sm" type="submit">Delete Subject</button>
+                            
+                        </form>
+                    <span>
+          
+                    </span>
                 </summary>
                 <!-- Portfolio Item Row -->
                 {{#each this.courses}}
@@ -32,22 +56,32 @@
                     <p>{{this.dscription}}</p>
                     <h3 class="my-3">Course Details</h3>
                     <ul>
+                        <li>Category: {{../this.name}}</li>
                         <li>Author: {{this.author}}</li>
                         <li>Duration:<small class="text-muted">{{this.duration}}</small></li>
                         <li>Description:{{this.description}}</li>
+                        <li>Id:{{this._id}} 
+                            <form action="/data/delete" method="post">
+                                 <input type="hidden" name="subject" value="{{../this.name}}">
+                                <input type="hidden" name="id" value="{{this._id}}" >
+                                <button type="submit">Delete Course</button>
+                               
+                            </form>
+                            <!--
+                                <a href="/data/delete?subject={{../this.name}}&id={{this._id}}" 
+                                    class="btn btn-danger btn-sm active" formmethod="post" 
+                                    role="button" aria-pressed="true" >Delete Course
+                                </a>
+                            -->
+                        </li>
+                        
                     </ul>
+                   
                     </div>
 
                 </div>
                 {{/each}}
-                <!-- /.row -->
-                <!-- 
-                <div class="list-group">
-                    {{#each this.courses}}
-                        <a href="/{{this.filename}}" class="list-group-item">{{this.filename}}</a>
-                    {{/each}}
-                </div> 
-                -->
+               
             </details> 
         {{/each}}
     </div>

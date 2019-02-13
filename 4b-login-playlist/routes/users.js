@@ -12,7 +12,7 @@ router.get('/register', function (req, res) {
 
 // Login
 router.get('/login', function (req, res) {
-	
+	console.log(req.user);
 	res.render('login', {
 		userObj: req.user || null		
 	});
