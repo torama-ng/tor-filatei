@@ -49,6 +49,9 @@ router.post('/delete', ensureAuthenticated, (req,res,next) => {
         
         // Delete All?
         if (subject == "ALL"){
+            if (process.env.PLATFORM != "PROD"){
+                return res.send('This is not PROD environment. Data is not deleted');
+            }
             subjectsData.deleteMany({},(err,result)=>{
 
             })
