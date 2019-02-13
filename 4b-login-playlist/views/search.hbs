@@ -28,10 +28,10 @@
             <h5 id="{{category}}"> {{category}} Play List ({{count}})</h5>
             {{#each result}}
             
-            <div class="card rside text-white bg-primary mb-1 " onclick="playcVideo('{{this}}')">
+            <div class="card rside text-white bg-primary mb-1 " onclick="playcVideo('{{this.filename}}')">
                 <div class="card-header">{{@index}}</div>
                 <div class="card-body">
-                    <h4 class="card-title text-white">{{formatMe this}}</h4>
+                    <h4 class="card-title text-white">{{formatMe this.filename}}</h4>
                     <small class="card-text text-warning">Description: </small>
                     <small class="card-text text-warning">Duration </small>
                 </div>
