@@ -47,31 +47,29 @@
                     <div class="col-md-7">
                     <h3 class="my-3">{{this.filename}}</h3>
                     <p>{{this.dscription}}</p>
-                    <h3 class="my-3">Course Details</h3>
+                    <h3 class="my-3">Course Details
+                        <span>
+                            <form action="/data/delete" method="post" class="delform">
+                                <input type="hidden" name="subject" value="{{../this.name}}">
+                                
+                                <button  class=" btn btn-danger btn-sm" type="submit">Delete Subject</button>
+                                
+                            </form>
+                            <form action="/data/delete" method="post" class="delform">
+                                <input type="hidden" name="subject" value="{{../this.name}}">
+                                <input type="hidden" name="id" value="{{this._id}}" >
+                                <button class="btn btn-sm btn-warning" type="submit">Delete Course</button>
+                            
+                            </form>
+                        </span>
+                    </h3>
                     <ul>
                         <li>Category: {{../this.name}}</li>
                         <li>Author: {{this.author}}</li>
                         <li>Duration:<small class="text-muted">{{this.duration}}</small></li>
                         <li>Description:{{this.description}}</li>
                         <li>Id:{{this._id}} 
-                            <form action="/data/delete" method="post">
-                                 <input type="hidden" name="subject" value="{{../this.name}}">
-                                <input type="hidden" name="id" value="{{this._id}}" >
-                                <button type="submit">Delete Course</button>
-                               
-                            </form>
-                            <form action="/data/delete" method="post" class="delsub">
-                                <input type="hidden" name="subject" value="{{../this.name}}">
-                                
-                                <button  class=" btn btn-danger btn-sm" type="submit">Delete Subject</button>
-                                
-                            </form>
-                            <!--
-                                <a href="/data/delete?subject={{../this.name}}&id={{this._id}}" 
-                                    class="btn btn-danger btn-sm active" formmethod="post" 
-                                    role="button" aria-pressed="true" >Delete Course
-                                </a>
-                            -->
+                           
                         </li>
                         
                     </ul>
