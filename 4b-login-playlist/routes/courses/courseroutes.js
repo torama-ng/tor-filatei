@@ -55,9 +55,11 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
         else if (doc) {        
             courses = doc.courses;      
             count = courses.length;
+            category = subject;
 
             res.render('search', { 
                 title: 'Course Category',
+                category,
                 result: courses,
                 count
             });
