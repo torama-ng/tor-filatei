@@ -12,35 +12,27 @@ const videosPath2 = "";
 // List all Courses/subjects and video files under them
 router.get('/', ensureAuthenticated, (req,res,next) => {
     subq = req.query.subject;
-    subjectsData.find( (err, doc)=>{
-        
+    
+    subjectsData.find({}).sort({name: 'asc'}).exec((err, result) => {    
         if (err) res.status(404).send('Error Encountered');
-        else if (doc) {
+        else if (result) {
             if (subq){
-                console.log(`subq is ${subq}`);
                 res.render('listcourses', { 
                     title: 'List of subjects',
-                    result: doc,
-                    count:doc.length,
+                    result,
+                    count:result.length,
                     subq
                 });    
             }
             else {
                 res.render('listcourses', { 
                     title: 'List of Courses',
-                    result: doc,
-                    count: doc.length
+                    result,
+                    count: result.length
                 });
             }
             
         }
-    })
-    .exec()
-    .then(() => {
-        
-    })
-    .catch((err) => {
-        res.status(500).send(err);
     })
 })
 
@@ -53,24 +45,49 @@ router.get('/:name', ensureAuthenticated, (req,res,next) => {
     subjectsData.findOne({name:subject}, (err, doc)=>{
         if (err) error = 'Error Encountered in model findOnes';
         else if (doc) {        
+            // sort courses
+          
             courses = doc.courses;      
             count = courses.length;
+            /*
+            var mapped = courses.map(function(el, i) {
+                return { index: i, value: el.filename.toLowerCase() };
+              })
+            */
+            // console.log(`before sort ${courses}`)
+            sorted_courses = courses.sort ( (a,b) => {
+                return a.toString().localeCompare(b)
+            })
+            
+            
+            sorted_courses = courses.sort( 
+                (a, b) => {
+                    if (a.filename < b.filename ) {
+                      return -1;
+                    }
+                    if (a.filename > b.filename) {
+                      return 1;
+                    }
+                    
+                    return 0;
+                  }
+            );
+            if (sorted_courses != courses) {
+                console.log('there is diff')
+            }
+            else {
+                console.log('no diff')
+            }
+
             category = subject;
 
             res.render('search', { 
                 title: 'Course Category',
                 category,
-                result: courses,
+                result: sorted_courses,
                 count
             });
         }
-    })
-    .exec()
-    .then(() => {
-	  
-    })
-    .catch(() => {
-        res.status(500).send('Error in Data fetch')
     })
 })
 
@@ -85,8 +102,6 @@ router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {
             doc.courses.forEach(cs => {
                 if((cs.filename).toLowerCase().indexOf(course.toLowerCase()) > 0) {
                   //  res.send('Result found');
-                    console.log(cs.filename);
-                    console.log(course);
                     result.push( cs.filename);
                 }
             }) ;
@@ -99,12 +114,6 @@ router.get('/:subject/:course', ensureAuthenticated, (req,res,next) => {
             });
         }
       
-    })
-    .then(() => {
-
-    })
-    .catch(() => {
-        res.status(500).send('Error in Data fetch')
     })
 })
 

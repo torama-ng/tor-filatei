@@ -72,8 +72,8 @@ hbs.registerHelper('formatMe', function(txt) {
   txt = txt.replace("%", "");
   console.log(txt);
   txt =  decodeURIComponent(txt) ;
-  
-  return txt.substring(0, 40);
+  return txt
+  // return txt.substring(0, 40);
 
 });
 

@@ -9,8 +9,12 @@ const subjectsData = require('../models/subject');
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
 	
-    subjectsData.find({}, (err, result)=>{
-        if (err) return res.status(404).send('Error Encountered');
+    
+    subjectsData.find({}).sort({name: 'asc'}).exec((err, result) => {
+        if (err) {
+            console.log('error in subject find',err)
+            return res.send('Error Encountered')
+        }
         if (result) {
             
             // docj = JSON.stringify(doc);
@@ -23,12 +27,6 @@ router.get('/', ensureAuthenticated, function(req, res){
             });
         
         }
-    })
-    .then(() => {
-        
-    })
-    .catch((err) => {
-        res.status(500).send(err);
     })
 });
 

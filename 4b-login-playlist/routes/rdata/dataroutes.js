@@ -124,7 +124,7 @@ router.post('/dataloader', ensureAuthenticated, (req,res,next) => {
                 doc.courses = [];
                 files.forEach(mp4 => {
                     mp4path = path.join(mpath,mp4);
-                    console.log(` mp4 files ${mp4path}`);
+                    // console.log(` mp4 files ${mp4path}`);
                     if  (fs.lstatSync(mp4path).isFile())
                     {
                         let course = {filename:mp4} 
