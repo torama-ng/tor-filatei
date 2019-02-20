@@ -1,0 +1,18 @@
+
+{{#each children}}
+    <li ><span class="caret">
+        {{this.name}}
+        </span>
+        
+        {{#if this.children}}
+            {{#if this.children.length}}
+              (<a href="/courses/{{this.name}}">{{this.children.length }} Videos
+              </a>) <i class="fa fa-folder"></i> <small>{{this.path}}</small>
+            {{/if}}
+            <ul  class="nested">
+                {{>list}}
+            </ul>
+        {{/if}}
+    </li>
+{{/each}}
+

@@ -22,6 +22,7 @@ mongoose
 const videoRoutes = require('./routes/videoroutes');
 const courses = require('./routes/courses/courseroutes');
 const data = require('./routes/rdata/dataroutes');
+const apiroutes = require('./routes/api/apiroutes');
 
 const torplay = require('./routes/torplay');
 const routes = require('./routes/index');
@@ -49,7 +50,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', exphbs({
     extname:'hbs',
     layoutsDir:__dirname+'/views/layouts/',
-    defaultLayout:'layout'
+    partialsDir:__dirname+'/views/partials/',
+    defaultLayout:'layout',
+
   }));
   
 app.set('view engine', 'hbs');
@@ -133,6 +136,8 @@ app.use(function (req, res, next) {
 // Routes
 app.use('/api/videos',videoRoutes);
 app.use('/torplay',torplay);
+app.use('/api',apiroutes);
+
 app.use('/courses',courses);
 app.use('/data',data);
 app.use('/', routes);

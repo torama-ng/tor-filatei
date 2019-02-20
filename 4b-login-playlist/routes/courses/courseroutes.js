@@ -3,11 +3,93 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const fetch = require('node-fetch');
+const dree = require('dree')
+const trim = require('deep-trim-node');
+
 const subjectsData = require('../../models/subject');
+const subjectsDree = require('../../models/subjectdree');
+
+const tmpPath = path.join(__dirname, '../../tmp');
 
 const videosPath = path.join(__dirname, '../../videos');
-const videosPath2 = "";
 
+router.get('/listree',(req,res,next) => {
+    subjectsDree.find({}).sort({name: 'asc'}).exec((err, children) => {    
+        if (err) return res.status(404).send('Error Encountered');
+        if (children) {
+            console.log(children);
+            res.render('listree', { 
+                title: 'Tree of subjects',
+                children,
+                count:children.length
+            });        
+        }
+    })
+})
+
+router.post('/walkdel', (req,res,next) => {
+
+    if (process.env.PLATFORM != "PROD"){
+        return res.send('This is not PROD environment. Data is not deleted');
+    }
+    subjectsDree.deleteMany({},(err,result)=>{
+
+    })
+    .then(() => {
+        return res.send(' All subjectsdree  deleted');
+    })
+    .catch((err) => {
+        return res.status(500).send(`${err} Error in dree Data delete`);
+    })  
+})
+
+
+// recursive walk down videospath and load
+router.post('/treeload', (req,res,next) => {
+   
+    const options = {
+        stat: true,
+        normalize: true,
+        sizeInBytes: false,
+        hash: false,
+        size: false,
+        isSymbolicLink: true,
+        depth: 5,
+        exclude: /desc/,
+        extensions: [ 'mp4' ]
+      };
+    
+    dirs = fs.readdirSync(videosPath)
+    if (process.env.PLATFORM !="PROD") {
+        return res.send('Wrong platform')
+    }
+
+    //read data from db
+
+    // data insert
+    dirs.forEach( doc => {
+        const tree = dree.scan(path.join(videosPath,doc), options);
+        let subjectd = new subjectsDree({
+            name:tree.name.trim(),
+            type:tree.type.trim(),
+            path:tree.path.trim(),
+            children:trim(tree.children)
+        });
+
+        subjectd.save()
+        .then ( () => {
+            console.log(`${doc} tree saved in db`);
+            
+        })
+        .catch ((err) => {
+                console.log(err);
+              
+        })
+    
+    })
+    res.send('data saved to db')
+    
+})
 
 // List all Courses/subjects and video files under them
 router.get('/', ensureAuthenticated, (req,res,next) => {

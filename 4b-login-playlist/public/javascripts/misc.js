@@ -66,7 +66,7 @@ function playcVideo(selectid) {
   selected = '/' + folder.toLowerCase() + '/' + selected;
   // console.log(`select id is ${selectid} selected is ${selected}`);
   // set text for video Title
-  console.log(`selected url is ${selected} `); 
+  // console.log(`selected url is ${selected} `); 
   var source = document.createElement('source');
   
   //source.setAttribute('src', encodeURI(selected));

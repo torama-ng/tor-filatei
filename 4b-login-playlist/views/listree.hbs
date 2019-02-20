@@ -1,0 +1,108 @@
+<style>
+ul, #myUL {
+  list-style-type: none;
+}
+
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: red;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+</style>
+
+
+{{#if user}}
+    <div>
+        <h5> {{count}} Subjects
+        <!-- Load Data Button -->
+        <form action="/courses/treeload" method="post" id="dataloader">
+            <button  class="btn btn-success" type="submit">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                Load Data</button>
+                               
+        </form>
+        <form action="/courses/walkdel" method="post" id="delall">
+            <input type="hidden" name="subject" value="ALL">
+            <button  class="btn btn-success" type="submit">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete All</button>
+                               
+        </form>
+        </h5>
+    </div>
+    <hr>
+    <div class="container-fluid" >    
+        <ul id="myUL">
+            {{> list}}
+        </ul>
+    </div>
+        
+{{else}}
+     <div class="alert alert-danger">Please login</div>S
+{{/if}}
+
+
+<script>
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    this.classList.toggle("caret-down");
+    
+  });
+     
+    str = toggler[i].innerText
+    str2 = '.mp4'
+    if (new RegExp(str2).test(str)) {
+
+        console.log(toggler[i].innerText)
+    }
+ }
+
+function createVideo(videoid,index) {
+    let video = document.getElementbyId('videoid')
+    video.src = encodeURI(toggler[index].innerText);
+ 
+    video.load();
+    video.play();
+
+    let dur = video.duration;
+  
+    video.focus();
+ }
+</script>
+
+<!-- google params example 
+     https://admin.google.com/torama.ng/AdminHome#DomainSettings/notab=1&subtab=subscriptions 
+     -->
