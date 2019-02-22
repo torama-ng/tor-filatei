@@ -54,8 +54,8 @@ router.post('/treeload', (req,res,next) => {
         hash: false,
         size: false,
         isSymbolicLink: true,
-        depth: 5,
-        exclude: /desc/,
+        depth: 7,
+        exclude: /udl-tmp/,
         extensions: [ 'mp4' ]
       };
     
